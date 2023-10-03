@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Edit person</title>
 </head>
 <body>
-$END$
+
+<form th:action="${'/people/' + person.getPersonId()}" th:method="PATCH" th:object="${person}">
+    <label for="name">Enter new name: </label>
+    <input type="text" id="name" th:field="*{name}">
+    <br>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <label for="birth">Enter new year of birth: </label>
+    <input type="text" id="birth" th:field="*{yearOfBirth}">
+    <br>
+    <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Date of birth Error</div>
+    <input type="submit" value="Edit person">
+</form>
+
 </body>
 </html>

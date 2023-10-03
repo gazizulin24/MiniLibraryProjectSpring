@@ -6,5 +6,24 @@
 </head>
 <body>
 
+<h2>New book</h2>
+
+<form th:action="@{/books}" th:method="POST" th:object="${book}">
+    <label for="name">Enter name: </label>
+    <input type="text" id="name" th:field="*{name}">
+    <br>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <label for="author">Enter author: </label>
+    <input type="text" id="author" th:field="*{author}">
+    <br>
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author Error</div>
+    <label for="yearOfPublication">Enter year of publication: </label>
+    <input type="text" id="yearOfPublication" th:field="*{yearOfPublication}">
+    <br>
+    <div style="color:red" th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}">Year of publication Error</div>
+    <input type="submit" value="Add new book">
+</form>
+
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-package org.gazizulin.MiniLibrary.configuration;
+package org.gazizulin.MiniLibrary.config;
 
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.FilterRegistration;
@@ -36,7 +36,7 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
 
     private void registerHiddenFieldFilter(ServletContext aContext) {
         aContext.addFilter("hiddenHttpMethodFilter",
-                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
+                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
     }
 
     private void registerCharacterEncodingFilter(ServletContext aContext) {
@@ -49,4 +49,5 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
         FilterRegistration.Dynamic characterEncoding = aContext.addFilter("characterEncoding", characterEncodingFilter);
         characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
     }
+
 }

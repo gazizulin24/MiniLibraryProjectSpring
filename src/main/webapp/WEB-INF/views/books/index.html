@@ -5,12 +5,11 @@
     <title>All books</title>
 </head>
 <body>
+
 <h1>All books</h1>
 
 <div th:each="book : ${books}">
-    <a th:href="/books/${book.getId()}" th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublication()}">
-        name, author, yearofpublication
-    </a>
+    <a th:href="${'/books/' + book.getBookId()}" th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublication()}"></a>
 </div>
 
 <hr>
