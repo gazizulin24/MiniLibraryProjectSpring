@@ -16,5 +16,15 @@
 
 <a href="/books/new"> Add new book</a>
 
+
+
+<form th:action="${'/people'}">
+    <input type="submit" value="Go to People">
+</form>
+
+<form th:action="${'/books/search'}">
+    <input type="submit" value="Search books">
+</form>
+
 </body>
 </html>

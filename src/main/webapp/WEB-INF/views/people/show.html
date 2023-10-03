@@ -16,7 +16,8 @@
 <div th:if="${!books.isEmpty()}">
     <hr>
     <h4>Books:</h4>
-    <p th:each="book : ${books}" th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublication()}">book</p>
+    <p th:each="book : ${books}" th:style="${book.isExpired()} ? 'color: red' : 'color: black'"
+       th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublication()}">book</p>
 </div>
 
 <hr>
@@ -28,5 +29,7 @@
 <form th:action="${'/people/' + person.getPersonId()}" th:method="DELETE">
     <input type="submit" value="Delete person">
 </form>
+
+
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +48,13 @@ public class PersonService {
 
     public List<Book> findBooksByPersonId(int id){
         Person person = personRepository.findById(id).orElse(null);
+
         Hibernate.initialize(person.getBooks());
+
+        person.getBooks().forEach(book -> {
+            book.setExpired(Math.abs(book.getTakenAt().getTime() - new Date().getTime()) > 864000000);
+        });
+
         return person.getBooks();
     }
 

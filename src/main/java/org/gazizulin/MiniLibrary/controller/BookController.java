@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -25,9 +26,18 @@ public class BookController {
         this.bookService = bookService;
     }
 
+
     @GetMapping("")
-    public String index(Model model){
-        model.addAttribute("books", bookService.findAll());
+    public String mainPage(@RequestParam(required = false, name = "page") Integer page,
+                                @RequestParam(required = false, name = "books_per_page") Integer books_per_page,
+                           @RequestParam(required = false, name = "sort_by_year") boolean sortByYear, Model model){
+
+        if (page == null && books_per_page == null){
+            model.addAttribute("books", bookService.findAll(sortByYear));
+        } else{
+            model.addAttribute("books", bookService.findPaginate(page, books_per_page, sortByYear));
+        }
+
 
         return "books/index";
     }
@@ -64,6 +74,26 @@ public class BookController {
 
         return "books/show";
     }
+
+    @GetMapping("/search")
+    public String searchPage(Model model){
+
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String makeSearch(@RequestParam("query") String query, Model model){
+        System.out.println(query);
+
+        if (query == null){
+            model.addAttribute("books", bookService.findAll(false));
+        } else{
+            model.addAttribute("books", bookService.findByPrefix(query));
+        }
+
+        return "books/search";
+    }
+
 
     @PatchMapping("/{id}/makeFree")
     public String makeBookFree(@PathVariable int id){
